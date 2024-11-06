@@ -1,3 +1,5 @@
 /venv
 /.idea
 **/__pycache__
+/test_cases
+/broadpos_test_case
