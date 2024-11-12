@@ -3,7 +3,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-class AndroidCommandUtil:
+class UIUtil:
     SELECTOR_TEXT = "new UiSelector().text(\"%s\")"
 
     @classmethod
