@@ -11,6 +11,7 @@ capabilities = {
     "fullReset": False
 }
 
+# appium_server_url = 'http://172.17.0.2:4723'
 appium_server_url = 'http://localhost:4723'
 
 
@@ -18,17 +19,15 @@ class AppUtil:
 
     @classmethod
     def getInstance(cls) -> WebDriver:
+        appiumOptions = AppiumOptions().load_capabilities(caps=capabilities)
         return webdriver.Remote(
             appium_server_url,
-            options=AppiumOptions().load_capabilities(caps=capabilities)
+            options=appiumOptions
         )
 
     @classmethod
-    def startApp(cls, driver: webdriver, appId: str, startActivity: str):
-        appState = driver.query_app_state(appId)
-        if appState != 1:
-            driver.terminate_app(appId)
-
+    def restartApp(cls, driver: webdriver, appId: str, startActivity: str):
+        driver.terminate_app(appId)
         cap = capabilities.copy()
         cap["appPackage"] = appId
         cap["appActivity"] = startActivity

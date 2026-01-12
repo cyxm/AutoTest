@@ -3,6 +3,7 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver import ActionChains
 
 from autotest.command.android.WidgetName import WidgetName
 
@@ -15,7 +16,7 @@ class UIController:
     def __init__(self, driver: WebDriver, waitTime: int, appId: str):
         self.driver = driver
         self.timeout = waitTime
-        self.wait = WebDriverWait(driver=self.driver, timeout=30, poll_frequency=1)
+        self.wait = WebDriverWait(driver=self.driver, timeout=30, poll_frequency=0.5)
         self.appId = appId
 
     def waitForActivity(self, activity: str):
@@ -30,13 +31,13 @@ class UIController:
     def getById(self, appId: str, widgetId: str):
         return self.driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value=self.SELECTOR_ID % (appId, widgetId))
 
-    def waitForWidgetText(self, text: str):
+    def waitText(self, text: str):
         return self.wait.until(lambda x: self.getByText(text))
 
-    def waitForWidgetClz(self, clz: str):
+    def waitClz(self, clz: str):
         return self.wait.until(lambda x: self.getByClz(clz))
 
-    def waitForWidgetId(self, widgetId: str):
+    def waitId(self, widgetId: str):
         return self.wait.until(lambda x: self.getById(self.appId, widgetId))
 
     def inputText(self, content: str):
